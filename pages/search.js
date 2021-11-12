@@ -26,10 +26,12 @@ const Search = () => {
                     <Input 
                         placeholder='Enter pickup location'
                         value={pickup}
+                        onChange={(e) => setPickup(e.target.value)}
                         />
                     <Input 
                         placeholder='Where to?'
                         value={dropoff}
+                        onChange={(e) => setDropoff(e.target.value)}
                         />
                 </InputBoxes>
                 <PlusIcon src="https://img.icons8.com/ios/50/000000/plus-math.png"/>
@@ -43,8 +45,8 @@ const Search = () => {
             <Link href={{
                 pathname: "/confirm",
                 query: {
-                    pickup:"Santa Monica",
-                    dropoff: "Los Angeles"
+                    pickup: pickup,
+                    dropoff: dropoff
                 }
             }}>
                 <ConfirmButtonContainer>

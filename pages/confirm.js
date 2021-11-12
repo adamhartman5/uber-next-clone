@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import tw from 'tailwind-styled-components'
 import Map from './components/Map'
+import { useRouter } from 'next/dist/client/router'
+import RideSelector from './components/RideSelector'
 
 const Confirm = () => {
+
+    const router = useRouter()
+    const {pickup, dropoff} = router.query
 
     const [ pickupCoordinates, setPickupCoordinates] = useState()
     const [ dropoffCoordinates, setDropoffCoordinates] = useState()
 
-    const getPickupCoordinates = () => {
-        const pickup = "Santa Monica";
+    const getPickupCoordinates = (pickup) => {
         fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${pickup}.json?` +
             new URLSearchParams({
                 access_token: 'pk.eyJ1Ijoia2llcm1haWVycmF5czM5IiwiYSI6ImNrdnB3ZWtuejB3ejQzMHF2NWpmaTN6OGYifQ.otcRCBgPgtKkoYOrrb0sbQ',
@@ -21,8 +25,7 @@ const Confirm = () => {
             })
     }
 
-    const getDropoffCoordinates = () => {
-        const dropoff = "Los Angeles";
+    const getDropoffCoordinates = (dropoff) => {
         fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${dropoff}.json?` +
             new URLSearchParams({
                 access_token: 'pk.eyJ1Ijoia2llcm1haWVycmF5czM5IiwiYSI6ImNrdnB3ZWtuejB3ejQzMHF2NWpmaTN6OGYifQ.otcRCBgPgtKkoYOrrb0sbQ',
@@ -36,9 +39,9 @@ const Confirm = () => {
     }
 
     useEffect(() => {
-        getPickupCoordinates();
-        getDropoffCoordinates();
-    }, [])
+        getPickupCoordinates(pickup);
+        getDropoffCoordinates(dropoff);
+    }, [pickup, dropoff])
 
     return (
         <Wrapper>
@@ -47,8 +50,10 @@ const Confirm = () => {
                 dropoffCoordinates={dropoffCoordinates}
             />
             <RideContainer>
-                Ride Selector
-                Confirm Button
+                <RideSelector />
+                <ConfirmButtonContainer>
+                    Confirm UberX
+                </ConfirmButtonContainer>
             </RideContainer>
         </Wrapper>
     )
@@ -61,5 +66,9 @@ const Wrapper = tw.div`
 `
 
 const RideContainer = tw.div`
-    flex-1
+    flex-1 flex flex-col
+`
+
+const ConfirmButtonContainer = tw.div`
+    bg-black text-white
 `
