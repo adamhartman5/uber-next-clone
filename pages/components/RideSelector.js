@@ -34,25 +34,25 @@ const CarList = tw.div`
 `
 
 const Car = tw.div`
-    flex
+    flex p-4 items-center
 `
 
 const CarImage = tw.img`
-
+    h-14 mr-4
 `
 
 const CarDetails = tw.div`
-
+    flex-1
 `
 
 const Service = tw.div`
-
+    font-medium
 `
 
 const Time = tw.div`
-
+    text-xs text-blue-500
 `
 
 const Price = tw.div`
-
+    text-sm
 `
