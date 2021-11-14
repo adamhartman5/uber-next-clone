@@ -17,7 +17,6 @@ const RideSelector = (props) => {
         .then((response)=>{
             return response.json();
         }).then(data => {
-            // console.log
             setDuration(data.routes[0].duration)
         })
     }
