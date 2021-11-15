@@ -6,18 +6,15 @@ const RideSelector = (props) => {
 
     const [duration, setDuration ]= useState(0);
 
-
-
     const getDirections = (pickupCoordinates, dropoffCoordinates) => {
-        fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?` + 
+        fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?geometries=geojson&` + 
             new URLSearchParams({
                 access_token: "pk.eyJ1Ijoia2llcm1haWVycmF5czM5IiwiYSI6ImNrdnB3ZWtuejB3ejQzMHF2NWpmaTN6OGYifQ.otcRCBgPgtKkoYOrrb0sbQ",
             })
         )
-        .then((response)=>{
-            return response.json();
-        }).then(data => {
-            setDuration(data.routes[0].duration)
+        .then(response => response.json())
+        .then(data => {
+            setDuration(data.routes[0]?.duration)
         })
     }
 
